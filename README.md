@@ -2,14 +2,16 @@
 
 ## usersテーブル（ユーザー）
 
-| Column                  | Type    | Options     |
-| ----------------------- | ------- | ----------- |
-| nickname                | string  | null: false |
-| email                   | string  | null: false |
-| encrypted_password      | string  | null: false |
-| name_chinese_characters | string  | null: false |
-| name_katakana           | string  | null: false |
-| birthday                | integer | null: false |
+| Column                        | Type    | Options     |
+| ----------------------------- | ------- | ----------- |
+| nickname                      | string  | null: false |
+| email                         | string  | null: false |
+| encrypted_password            | string  | null: false |
+| last_name_chinese_characters  | string  | null: false |
+| first_name_chinese_characters | string  | null: false |
+| last_name_katakana            | string  | null: false |
+| first_name_katakana           | string  | null: false |
+| birthday                      | date    | null: false |
 
 ### Association
 - has_many :item_listings
@@ -39,12 +41,8 @@
 
 | Column           | Type       | Options           |
 | ---------------- | ---------- | ----------------- |
-| card_information | integer    | null: false       |
-| expiration_date  | integer    | null: false       |
-| security_code    | integer    | null: false       |
 | user             | references | foreign_key: true |
 | item_listings    | references | foreign_key: true |
-| shipping_address | references | foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -57,7 +55,7 @@
 | Column         | Type       | Options           |
 | -------------- | ---------- | ----------------- |
 | postal_code    | string     | null: false       |
-| prefectures    | string     | null: false       |
+| prefectures    | integer    | null: false       |
 | municipality   | string     | null: false       |
 | address        | string     | null: false       |
 | building_name  | string     |                   |

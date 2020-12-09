@@ -2,11 +2,14 @@
 
 ## usersテーブル（ユーザー）
 
-| Column   | Type   | Options     |
-| -------- | ------ | ----------- |
-| name     | string | null: false |
-| email    | string | null: false |
-| password | string | null: false |
+| Column                  | Type    | Options     |
+| ----------------------- | ------- | ----------- |
+| nickname                | string  | null: false |
+| email                   | string  | null: false |
+| encrypted_password      | string  | null: false |
+| name_chinese_characters | string  | null: false |
+| name_katakana           | string  | null: false |
+| birthday                | integer | null: false |
 
 ### Association
 - has_many :item_listings
@@ -19,18 +22,17 @@
 | ------------------- | ---------- | ----------------- |
 | product_name        | string     | null: false       |
 | product_explanation | text       | null: false       |
-| category            | string     | null: false       |
-| product_status      | string     | null: false       |
-| shipping_charges    | integer    | null: false       |
-| shipping_area       | string     | null: false       |
-| days_to_ship        | string     | null: false       |
+| category_id         | integer    | null: false       |
+| product_status_id   | integer    | null: false       |
+| shipping_charges_id | integer    | null: false       |
+| prefectures         | integer    | null: false       |
+| days_to_ship_id     | integer    | null: false       |
 | price               | integer    | null: false       |
 | user                | references | foreign_key: true |
-| item_purchase       | references | foreign_key: true |
 
 ### Association
-- belongs_to :users
-- has_one    :item_purchases
+- belongs_to :user
+- has_one    :item_purchase
 
 
 ## item_purchasesテーブル（商品購入）
@@ -45,8 +47,8 @@
 | shipping_address | references | foreign_key: true |
 
 ### Association
-- belongs_to :users
-- belongs_to :item_listings
+- belongs_to :user
+- belongs_to :item_listing
 - has_one    :shipping_address
 
 
@@ -54,13 +56,13 @@
 
 | Column         | Type       | Options           |
 | -------------- | ---------- | ----------------- |
-| postal_code    | integer    | null: false       |
+| postal_code    | string     | null: false       |
 | prefectures    | string     | null: false       |
 | municipality   | string     | null: false       |
 | address        | string     | null: false       |
 | building_name  | string     |                   |
-| phone_number   | integer    | null: false       |
+| phone_number   | string     | null: false       |
 | item_purchases | references | foreign_key: true |
 
 ### Association
-- belongs_to :item_purchases
+- belongs_to :item_purchase

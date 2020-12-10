@@ -20,17 +20,17 @@
 
 ## itemsテーブル（商品出品）
 
-| Column              | Type       | Options           |
-| ------------------- | ---------- | ----------------- |
-| name                | string     | null: false       |
-| explanation         | text       | null: false       |
-| category_id         | integer    | null: false       |
-| product_status_id   | integer    | null: false       |
-| shipping_charges_id | integer    | null: false       |
-| prefectures_id      | integer    | null: false       |
-| days_to_ship_id     | integer    | null: false       |
-| price               | integer    | null: false       |
-| user                | references | foreign_key: true |
+| Column                 | Type       | Options           |
+| ---------------------- | ---------- | ----------------- |
+| name                   | string     | null: false       |
+| explanation            | text       | null: false       |
+| category_id            | integer    | null: false       |
+| status_id              | integer    | null: false       |
+| shipping_fee_burden_id | integer    | null: false       |
+| prefecture_id          | integer    | null: false       |
+| days_to_ship_id        | integer    | null: false       |
+| price                  | integer    | null: false       |
+| user                   | references | foreign_key: true |
 
 ### Association
 - belongs_to :user
@@ -55,7 +55,7 @@
 | Column         | Type       | Options           |
 | -------------- | ---------- | ----------------- |
 | postal_code    | string     | null: false       |
-| prefectures_id | integer    | null: false       |
+| prefecture_id  | integer    | null: false       |
 | municipality   | string     | null: false       |
 | address        | string     | null: false       |
 | building_name  | string     |                   |

@@ -22,10 +22,22 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Last name chinese characters can't be blank")
     end
 
+    it "名字（漢字）が全角漢字、ひらがな、カタカナ以外が入力されている場合に登録ができない" do
+      @user.last_name_chinese_characters = "kana"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name chinese characters is invalid")
+    end
+
     it "名前（漢字）が空だと登録できない" do
       @user.first_name_chinese_characters = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("First name chinese characters can't be blank")
+    end
+
+    it "名前（漢字）が全角漢字、ひらがな、カタカナ以外が入力されている場合に登録ができない" do
+      @user.first_name_chinese_characters = "kana"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name chinese characters is invalid")
     end
 
     it "名字（カタカナ）が空だと登録できない" do
@@ -34,10 +46,22 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Last name katakana can't be blank")
     end
 
+    it "名字（カタカナ）が全角カタカナ以外が入力されている場合に登録ができない" do
+      @user.last_name_katakana = "かな"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Last name katakana is invalid")
+    end
+
     it "名前（カタカナ）が空だと登録できない" do
       @user.first_name_katakana = nil
       @user.valid?
       expect(@user.errors.full_messages).to include("First name katakana can't be blank")
+    end
+
+    it "名前（カタカナ）が全角カタカナ以外が入力されている場合に登録ができない" do
+      @user.first_name_katakana = "かな"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("First name katakana is invalid")
     end
 
     it "生年月日が空だと登録できない" do
@@ -60,6 +84,12 @@ RSpec.describe User, type: :model do
       expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
 
+    it "メールアドレスに@が含まれてないと登録できない" do
+      @user.email = "samplegmail.com"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Email is invalid")
+    end
+
 
     it "パスワードが空だと登録できない" do
       @user.password = nil
@@ -70,7 +100,7 @@ RSpec.describe User, type: :model do
     it "パスワードが6文字以上であれば登録できること" do
       @user.password = "123456"
       @user.password_confirmation = "123456"
-      expect(@user).to be_valid
+      expect(@user.invalid?).to be true
     end
 
     it "パスワードが5文字以下であれば登録できないこと" do

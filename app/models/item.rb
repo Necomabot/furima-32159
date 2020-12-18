@@ -5,8 +5,9 @@ class Item < ApplicationRecord
     validates :explanation
     validates :image
 
-    validates :price, format: {with: /^[299-10000000]+$/ }
-    
+    with_options numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 } do
+      validates :price
+    end
 
    
 

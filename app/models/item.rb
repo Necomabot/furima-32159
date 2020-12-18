@@ -3,7 +3,12 @@ class Item < ApplicationRecord
   with_options presence: true do
     validates :name
     validates :explanation
-    validates :price
+    validates :image
+
+    validates :price, format: {with: /^[299-10000000]+$/ }
+    
+
+   
 
     with_options numericality: { other_than: 1 } do
       validates :category_id

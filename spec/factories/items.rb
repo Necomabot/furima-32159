@@ -2,11 +2,11 @@ FactoryBot.define do
   factory :item do
     name {Faker::Name.name}
     explanation {Faker::String.random}
-    category_id {Faker::String.random}
-    status_id {Faker::String.random}
-    shipping_fee_burden_id {Faker::String.random}
-    prefecture_id {Faker::String.random}
-    days_to_ship_id {Faker::String.random}
-    price {Faker::Alphanumeric.alpha(number: 300)}
+    category_id {1}
+    status_id {1}
+    shipping_fee_burden_id {1}
+    prefecture_id {1}
+    days_to_ship_id {1}
+    price {Faker::Alphanumeric.random}
   end
 end

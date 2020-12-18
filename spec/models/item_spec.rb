@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   describe '#create' do
     before do
-      @item =FactoryBot.build(:user)
+      @item = FactoryBot.build(:item)
     end
 
     context "登録できる場合" do
@@ -12,7 +12,7 @@ RSpec.describe Item, type: :model do
       end
 
       it "価格の範囲が、¥300~¥9,999,999の間であれば保存できること" do
-        @item.price = "300"
+        @item.price = 300
         expect(@item).to be_valid
       end
     end
@@ -37,34 +37,34 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Explanation can't be blank")
       end
 
-      it "カテゴリーが空だと登録できない" do
-        @item.category_id = nil
+      it "カテゴリーのID1だと登録できない" do
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category id can't be blank")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
 
-      it "商品状態が空だと登録できない" do
-        @item.status_id = nil
+      it "商品状態のIDが1だと登録できない" do
+        @item.status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Status id can't be blank")
+        expect(@item.errors.full_messages).to include("Status must be other than 1")
       end
 
-      it "配送料の負担が空だと登録できない" do
-        @item.shipping_fee_burden_id = nil
+      it "配送料の負担のIDが1だと登録できない" do
+        @item.shipping_fee_burden_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee burden id can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping fee burden must be other than 1")
       end
 
-      it "発送元の地域が空だと登録できない" do
-        @item.prefecture_id = nil
+      it "発送元の地域のIDが1だと登録できない" do
+        @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture id can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
-      it "発送までの日数が空だと登録できない" do
-        @item.days_to_ship_id = nil
+      it "発送までの日数のIDが1だと登録できない" do
+        @item.days_to_ship_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Days to ship id can't be blank")
+        expect(@item.errors.full_messages).to include("Days to ship must be other than 1")
       end
 
       it "価格が空だと登録できない" do
@@ -74,15 +74,15 @@ RSpec.describe Item, type: :model do
       end
 
       it "価格の範囲が¥300~¥9,999,999以外が入力されている場合に登録できない" do
-        @user.price = "100"
-        @user.valid?
-        expect(@item.errors.full_messages).to include("Price is too short (minimum is ¥300 characters")
+        @item.price = 100
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
 
       it "販売価格が半角数字以外が入力されている場合に登録できない" do
-        @user.price = "１００"
-        @user.valid?
-        expect(@item.errors.full_messages).to include("Price is invalid")
+        @item.price = "kana"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
       end
     end
 

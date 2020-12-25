@@ -13,11 +13,6 @@ RSpec.describe ItemPurchaseShippingAddress, type: :model do
         expect(@item_purchase_shipping_address).to be_valid
       end
 
-      it "電話番号はハイフンなしで11桁以内だと登録できる" do
-        @item_purchase_shipping_address.phone_number = "01234567891"
-        expect(@item_purchase_shipping_address).to be_valid
-      end
-
       it "建築名が空でも登録できる" do
       @item_purchase_shipping_address.building_name = nil
       expect(@item_purchase_shipping_address).to be_valid
@@ -89,6 +84,18 @@ RSpec.describe ItemPurchaseShippingAddress, type: :model do
         @item_purchase_shipping_address.item_id = nil
         @item_purchase_shipping_address.valid?
         expect(@item_purchase_shipping_address.errors.full_messages).to include("Item can't be blank")
+      end
+
+      it "発送元の地域のIDが1だと登録できない" do
+        @item_purchase_shipping_address.prefecture_id = 1
+        @item_purchase_shipping_address.valid?
+        expect(@item_purchase_shipping_address.errors.full_messages).to include("Prefecture must be other than 1")
+      end
+
+      it "電話番号は英数混合だと登録できない" do
+        @item_purchase_shipping_address.phone_number = "1a1a1a1a1a1"
+        @item_purchase_shipping_address.valid?
+        expect(@item_purchase_shipping_address.errors.full_messages).to include("Phone number is invalid")
       end
     end
   end

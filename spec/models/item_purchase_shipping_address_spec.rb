@@ -17,6 +17,11 @@ RSpec.describe ItemPurchaseShippingAddress, type: :model do
         @item_purchase_shipping_address.phone_number = "01234567891"
         expect(@item_purchase_shipping_address).to be_valid
       end
+
+      it "建築名が空でも登録できる" do
+      @item_purchase_shipping_address.building_name = nil
+      expect(@item_purchase_shipping_address).to be_valid
+    end
     end
 
     context "登録できない場合" do
@@ -72,6 +77,18 @@ RSpec.describe ItemPurchaseShippingAddress, type: :model do
         @item_purchase_shipping_address.phone_number = "0123456789123"
         @item_purchase_shipping_address.valid?
         expect(@item_purchase_shipping_address.errors.full_messages).to include("Phone number is invalid")
+      end
+
+      it "user_idが空の場合登録できない" do
+        @item_purchase_shipping_address.user_id = nil
+        @item_purchase_shipping_address.valid?
+        expect(@item_purchase_shipping_address.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "item_idが空の場合登録できない" do
+        @item_purchase_shipping_address.item_id = nil
+        @item_purchase_shipping_address.valid?
+        expect(@item_purchase_shipping_address.errors.full_messages).to include("Item can't be blank")
       end
     end
   end

@@ -1,6 +1,8 @@
 class ItemPurchasesController < ApplicationController
   before_action :set_item
   before_action :authenticate_user!
+  before_action :contributor_confirmation
+  before_action :purchased
 
   def index
     @item_purchase_shipping_address = ItemPurchaseShippingAddress.new
@@ -38,6 +40,14 @@ class ItemPurchasesController < ApplicationController
       card: item_purchase_shipping_address_params[:token],
       currency: 'jpy'
     )
+  end
+
+  def contributor_confirmation
+    redirect_to root_path unless current_user != @item.user
+  end
+
+  def purchased
+    redirect_to root_path unless @item.item_purchase.blank?
   end
 
 end

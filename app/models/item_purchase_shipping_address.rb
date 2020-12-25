@@ -5,7 +5,6 @@ class ItemPurchaseShippingAddress
   with_options presence: true do
     validates :user_id
     validates :item_id
-    validates :prefecture_id
     validates :municipality
     validates :address
     validates :token
@@ -15,7 +14,11 @@ class ItemPurchaseShippingAddress
     with_options format: {with: /\A\d{3}[-]\d{4}$|^\d{3}[-]\d{2}$|^\d{3}\z/ } do
       validates :postal_code
     end
+    with_options numericality: { other_than: 1 } do
+      validates :prefecture_id
+    end
   end
+  
 
   def save
     item_purchase = ItemPurchase.create(user_id: user_id, item_id: item_id)

@@ -9,9 +9,6 @@ class ItemPurchasesController < ApplicationController
 
   end
 
-  def new
-  end
-
   def create
     @item_purchase_shipping_address = ItemPurchaseShippingAddress.new(item_purchase_shipping_address_params)
     if @item_purchase_shipping_address.valid?
